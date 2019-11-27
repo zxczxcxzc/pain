@@ -14,7 +14,6 @@ st = ' '.join(sys.argv[1:])
 binstr = []
 for c in st:
     binstr.append(format(ord(c), 'b')[::-1])
-print(' '.join(binstr))
 
 im = Image.new("RGB", (7, len(binstr) * 2), (255, 255, 255))
 x = 0
@@ -28,3 +27,4 @@ for i in binstr:
     im.putpixel((x, y + 1), (0, 255, 0))
     y += 2
 im.save("text.png")
+print('saved to text.png')
