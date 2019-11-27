@@ -27,7 +27,8 @@ class VM:
             "OUT": self.out,
             "INP": self.inp,
             "IF": self.if_,
-            "JMP": self.jmp
+            "JMP": self.jmp,
+            "EQU": self.equ
         }
 
     def pop(self):
@@ -53,6 +54,7 @@ class VM:
 
     # OPERATIONS
     def end(self):
+        print('[program ended]')
         sys.exit()
 
     def add(self):
@@ -88,6 +90,7 @@ class VM:
         self.push(1 if self.pop() == self.pop() else 0)
 
 def parse(file):
+    print("parsed code:\n----------")
     pix_map = {
         (255, 0, 0): "END",
         (255, 0, 255): "ADD",
@@ -97,7 +100,8 @@ def parse(file):
         (0, 255, 0): "OUT",
         (128, 255, 0): "INP",
         (255, 255, 0): "IF",
-        (255, 128, 0): "JMP"
+        (255, 128, 0): "JMP",
+        (128, 128, 128): "EQU"
     }
 
     im = Image.open(file)
@@ -110,13 +114,15 @@ def parse(file):
             elif pixel in pix_map:
                 op = pix_map.get(pixel)
         code.append(op)
+        print(op)
         if(op) == "END":
-            break   
+            break
+    print("----------")   
         
 code = []
 
 print("PAIN interpreter v" + str(version) +"\n")
 print("parsing image..")
 parse(sys.argv[1])
-print("running..\n=========[output]=========")
+print("running..\n[output]")
 VM(code).run()
