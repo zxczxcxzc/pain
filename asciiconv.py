@@ -1,5 +1,5 @@
 # Utility to convert text to pixels
-# usage: 
+# Usage: asciiconv.py [text]
 
 import sys
 from PIL import Image
